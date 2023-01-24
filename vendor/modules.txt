@@ -1,8 +1,15 @@
+# github.com/otiai10/gosseract v2.2.1+incompatible
+## explicit
+# github.com/otiai10/mint v1.4.1
+## explicit
 # github.com/phpdave11/gofpdi v1.0.11
 github.com/phpdave11/gofpdi
-# github.com/pkg/errors v0.8.1
+# github.com/pkg/errors v0.9.1
+## explicit
 github.com/pkg/errors
 # github.com/signintech/gopdf v0.9.20
 ## explicit
 github.com/signintech/gopdf
 github.com/signintech/gopdf/fontmaker/core
+# golang.org/x/net v0.5.0
+## explicit

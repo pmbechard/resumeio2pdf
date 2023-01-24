@@ -9,11 +9,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"time"
 
 	"github.com/signintech/gopdf"
+	// FIXME:
+	"ocrAddOn"
 )
 
 const (
@@ -39,6 +42,7 @@ var (
 	verbose     = flag.Bool("verbose", false, "show detail information")
 	overWrite   = flag.Bool("y", false, "overwrite PDF file")
 	pdfFileName = flag.String("pdf", "", "name of pdf file (default: SecureID + .pdf)")
+	repair      = flag.String("repair", "", "make pdf searchable")
 
 	httpClient = &http.Client{Timeout: Timeout}
 	reSID      = regexp.MustCompile(`^[[:alnum:]]+$`)
@@ -95,7 +99,19 @@ func main() {
 
 	cleanup(images)
 
+	// FIXME:
+	if checkTesseract() ocrAddOn.makeSearchable(*pdfFileName)
+
 	fmt.Printf("Resume stored to %s\n", *pdfFileName)
+}
+
+func checkTesseract() bool {
+	_, err := exec.Command("tesseract", "--version").Output()
+	if err != nil {
+		fmt.Println("Install Tesseract OCR engine from https://tesseract-ocr.github.io/tessdoc/Downloads.html to get a searchable PDF.")
+		return false
+	}
+	return true
 }
 
 func cleanup(images []string) {
